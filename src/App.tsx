@@ -4,6 +4,7 @@ import { Onboarding } from './Onboarding';
 import { Dashboard } from './Dashboard';
 import { Loader2 } from 'lucide-react';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { UIOutlet } from '@/state/UIProvider';
 
 export function App() {
   const session = useSession();
@@ -21,6 +22,7 @@ export function App() {
       <DataProvider store={session.store} uid={session.user.uid}>
         <ErrorBoundary>
           <Dashboard />
+          <UIOutlet />
         </ErrorBoundary>
       </DataProvider>
     );

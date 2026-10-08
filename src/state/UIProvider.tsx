@@ -13,6 +13,7 @@ interface UIApi {
   replace(render: Render, opts?: SheetOpts): void;
   closeTop(): void;
   toast(t: Omit<ToastItem, 'id'>): void;
+  sheets: SheetEntry[];
 }
 
 const Ctx = createContext<UIApi>(null!);
@@ -69,7 +70,8 @@ export function UIProvider({ children }: { children: ReactNode }) {
       setToasts((x) => [...x.slice(-2), { ...t, id }]);
       setTimeout(() => setToasts((x) => x.filter((y) => y.id !== id)), t.urgent ? 7000 : 3200);
     },
-  }), [closeTop]);
+    sheets,
+  }), [closeTop, sheets]);
 
   useEffect(() => {
     document.documentElement.style.overflow = sheets.length ? 'hidden' : '';
@@ -78,12 +80,20 @@ export function UIProvider({ children }: { children: ReactNode }) {
   return (
     <Ctx.Provider value={api}>
       {children}
+      <Toasts items={toasts} onDismiss={(id) => setToasts((x) => x.filter((y) => y.id !== id))} />
+    </Ctx.Provider>
+  );
+}
+
+export function UIOutlet() {
+  const { sheets, closeTop } = useUI();
+  return (
+    <>
       {sheets.map((s) => (
         <Sheet key={s.id} {...s.opts} closing={s.closing} onClose={closeTop}>
           {s.render(closeTop)}
         </Sheet>
       ))}
-      <Toasts items={toasts} onDismiss={(id) => setToasts((x) => x.filter((y) => y.id !== id))} />
-    </Ctx.Provider>
+    </>
   );
 }
