@@ -3,6 +3,7 @@ import { DataProvider } from '@/state/DataProvider';
 import { Onboarding } from './Onboarding';
 import { Dashboard } from './Dashboard';
 import { Loader2 } from 'lucide-react';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 export function App() {
   const session = useSession();
@@ -15,11 +16,12 @@ export function App() {
     );
   }
 
-  // If ready, we have a user, a household, and an initialized store
   if (session.phase === 'ready') {
     return (
       <DataProvider store={session.store} uid={session.user.uid}>
-        <Dashboard />
+        <ErrorBoundary>
+          <Dashboard />
+        </ErrorBoundary>
       </DataProvider>
     );
   }

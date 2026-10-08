@@ -4,6 +4,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 import { fileURLToPath, URL } from 'node:url';
 
 export default defineConfig({
+  base: '/our-home-/',
   resolve: {
     alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
   },
@@ -22,14 +23,14 @@ export default defineConfig({
       },
       includeAssets: ['favicon.ico', 'apple-touch-icon-180x180.png', 'logo.svg'],
       manifest: {
-        id: '/',
+        id: '/our-home-/',
         name: 'بيتنا · Our Home',
         short_name: 'بيتنا',
         description: 'لوحة تحكم منزلية مشتركة لنا نحن الاثنين',
         lang: 'ar',
         dir: 'rtl',
-        start_url: '/',
-        scope: '/',
+        start_url: '/our-home-/',
+        scope: '/our-home-/',
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#F5F1EB',

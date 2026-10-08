@@ -9,7 +9,7 @@ export function PlansCard() {
   const { plans, actions } = useData();
   const ui = useUI();
   
-  const items = plans.filter((p) => !p.doneAt).slice(0, 5);
+  const items = (plans || []).filter((p) => !p.doneAt).slice(0, 5);
 
   const openPlan = (p: Plan) => ui.open((c) => <PlanForm plan={p} onDone={c} />, { title: 'تعديل الخطة' });
 
