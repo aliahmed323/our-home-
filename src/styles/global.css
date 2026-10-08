@@ -81,17 +81,15 @@
 
 /* ───────── Base ───────── */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; overflow-x: hidden; }
+html { -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; }
 body {
   margin: 0;
-  overflow-x: hidden;
   font-family: var(--font);
   font-size: 16px;
   line-height: 1.5;
   color: var(--text);
   background: var(--bg);
   min-height: 100dvh;
-  overscroll-behavior-y: none;
   -webkit-font-smoothing: antialiased;
 }
 body::before {
@@ -266,6 +264,7 @@ input, textarea, select { -webkit-appearance: none; appearance: none; }
   display: flex; gap: 8px; overflow-x: auto;
   margin-inline: -16px; padding: 2px 16px 4px;
   scrollbar-width: none;
+  touch-action: pan-y;
 }
 .chips-scroll::-webkit-scrollbar { display: none; }
 .chips-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -670,7 +669,7 @@ input[type='date'].input, input[type='time'].input { text-align: right; }
 .exp-amt { font-weight: 650; font-size: 14.5px; white-space: nowrap; }
 
 /* ───────── Goals ───────── */
-.goals { display: flex; gap: 10px; overflow-x: auto; margin-inline: -16px; padding: 2px 16px 6px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.goals { display: flex; gap: 10px; overflow-x: auto; margin-inline: -16px; padding: 2px 16px 6px; scroll-snap-type: x mandatory; scrollbar-width: none; touch-action: pan-y; }
 .goals::-webkit-scrollbar { display: none; }
 .goal {
   flex: 0 0 min(72%, 230px); scroll-snap-align: start;
