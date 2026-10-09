@@ -33,12 +33,40 @@ export function Onboarding() {
         <div className="ob-actions">
           <button className="btn btn-primary lg" onClick={() => auth.signInGoogle()}>
             <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width={20} alt="G" style={{ background: '#fff', borderRadius: '50%', padding: 2 }} />
-            الدخول باستخدام جوجل
+            الدخول باستخدام حساب جوجل
           </button>
           
-          <button className="btn btn-soft lg" onClick={() => auth.signInDemo('demo-me')}>
-            تجربة التطبيق (بدون تسجيل)
-          </button>
+          <div style={{ textAlign: 'center', margin: '16px 0', color: 'var(--text-3)', fontSize: 13 }}>أو باستخدام البريد الإلكتروني</div>
+          
+          <form className="form" onSubmit={async (e) => {
+            e.preventDefault();
+            const fd = new FormData(e.currentTarget);
+            const em = fd.get('email') as string;
+            const pw = fd.get('password') as string;
+            if (!em || !pw) return;
+            setError(''); setLoading(true);
+            try {
+              await auth.signInEmail(em, pw);
+            } catch (err: any) {
+              if (err.code === 'auth/user-not-found' || err.code === 'auth/invalid-credential') {
+                try {
+                  await auth.signUpEmail(em, pw, em.split('@')[0]);
+                } catch (e2: any) {
+                  setError('فشل في تسجيل الدخول أو إنشاء الحساب: ' + e2.message);
+                }
+              } else {
+                setError('فشل في تسجيل الدخول: ' + err.message);
+              }
+            }
+            setLoading(false);
+          }}>
+            <input name="email" type="email" className="input big" placeholder="البريد الإلكتروني" required dir="ltr" />
+            <input name="password" type="password" className="input big" placeholder="كلمة المرور" required dir="ltr" />
+            {error && <div style={{ color: 'var(--red)', fontSize: 13 }}>{error}</div>}
+            <button className="btn btn-soft lg" type="submit" disabled={loading}>
+              {loading ? 'جاري التحميل...' : 'دخول / إنشاء حساب'}
+            </button>
+          </form>
         </div>
       </div>
     );
