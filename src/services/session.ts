@@ -101,7 +101,7 @@ export async function createHousehold(uid: string, profile: ProfileInput): Promi
     const code = inviteCode();
     const ref = doc(db, 'households', code);
     try {
-      await setDoc(ref, { name: 'بيتنا', members: [uid], currency: 'ر.س', createdAt: Date.now() });
+      await setDoc(ref, { name: 'بيتنا', members: [uid], currency: 'د.ع', createdAt: Date.now() });
     } catch {
       continue; // exists & not ours → permission denied
     }

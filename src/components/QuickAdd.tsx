@@ -60,6 +60,9 @@ export function FabMenu() {
       <button className="fab" onClick={() => ui.open(() => <QuickAddMenu />, { title: 'إضافة سريعة' })}>
         <LayoutDashboard size={22} fill="currentColor" /> إضافة
       </button>
+      <button className="mini-fab" onClick={() => ui.open((c) => <NoteForm onDone={c} />, { title: 'ملاحظة سريعة' })}>
+        <StickyNote size={20} />
+      </button>
     </>
   );
 }

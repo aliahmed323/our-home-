@@ -39,6 +39,11 @@ export function NoteForm({ note, onDone }: { note?: Note; onDone: () => void }) 
         onChange={(e) => setText(e.target.value)} autoFocus={!note}
         style={{ background: color, minHeight: 140, color: '#2A2520' }}
       />
+      
+      <div style={{ display: 'flex', gap: 8, marginTop: -8 }}>
+        <button type="button" className="pill" onClick={() => setText((s) => s + (s && !s.endsWith('\n') ? '\n' : '') + '• ')}>• نقطة</button>
+        <button type="button" className="pill" onClick={() => setText((s) => s + (s && !s.endsWith('\n') ? '\n' : '') + '☐ ')}>☐ مهمة</button>
+      </div>
 
       <Field label="لون الملاحظة">
         <ColorPick value={color} onChange={setColor} options={NOTE_COLORS} />

@@ -52,21 +52,21 @@ export function seedDemo() {
   put('expenses', { title: 'بنزين', amount: 120, category: 'transport', paidBy: A, date: todayISO(), createdBy: A, createdAt: now - 200 * min });
   put('expenses', { title: 'صيدلية', amount: 64, category: 'health', paidBy: B, date: todayISO(), createdBy: B, createdAt: now - 50 * min });
 
-  put('goals', { title: 'رحلة الصيف', emoji: '✈️', target: 12000, current: 7400, unit: 'ر.س', deadline: d(120), createdBy: A, createdAt: now - 20000 * min });
-  put('goals', { title: 'صندوق الطوارئ', emoji: '💰', target: 20000, current: 5200, unit: 'ر.س', createdBy: B, createdAt: now - 20000 * min });
-  put('goals', { title: 'كنبة جديدة', emoji: '🛋️', target: 3500, current: 3100, unit: 'ر.س', createdBy: B, createdAt: now - 9000 * min });
+  put('goals', { title: 'رحلة الصيف', emoji: '✈️', target: 12000, current: 7400, unit: 'د.ع', deadline: d(120), createdBy: A, createdAt: now - 20000 * min });
+  put('goals', { title: 'صندوق الطوارئ', emoji: '💰', target: 20000, current: 5200, unit: 'د.ع', createdBy: B, createdAt: now - 20000 * min });
+  put('goals', { title: 'كنبة جديدة', emoji: '🛋️', target: 3500, current: 3100, unit: 'د.ع', createdBy: B, createdAt: now - 9000 * min });
 
   put('notes', { text: 'كود بوابة العمارة: 4590#', color: '#FFE58F', pinned: true, createdBy: A, createdAt: now - 9000 * min });
   put('notes', { text: 'لا تنسَ تشغيل الغسالة قبل النوم 🧺', color: '#FFC9D6', createdBy: B, createdAt: now - 70 * min });
 
   put('activity', { type: 'need', text: 'أضافت سارة «طماطم» للمشتريات', emoji: '🛒', notify: true, createdBy: B, createdAt: now - 25 * min });
   put('activity', { type: 'status', text: 'سارة الآن: في البيت 🏠', emoji: '🟢', notify: false, createdBy: B, createdAt: now - 20 * min });
-  put('activity', { type: 'expense', text: 'سجلت سارة مصروف «صيدلية» 64 ر.س', emoji: '💰', notify: true, createdBy: B, createdAt: now - 50 * min });
+  put('activity', { type: 'expense', text: 'سجلت سارة مصروف «صيدلية» 64 د.ع', emoji: '💰', notify: true, createdBy: B, createdAt: now - 50 * min });
   put('activity', { type: 'task', text: 'أضاف أحمد مهمة «زيارة أهل سارة»', emoji: '✅', notify: true, createdBy: A, createdAt: now - 60 * min });
   put('activity', { type: 'task_done', text: 'أنجزت سارة «تنظيف المكيفات» 🎉', emoji: '🎉', notify: true, createdBy: B, createdAt: now - 1000 * min });
 
   demoDb.write({
-    household: { id: 'DEMO42', name: 'بيتنا', members: [A, B], currency: 'ر.س', createdAt: now },
+    household: { id: 'DEMO42', name: 'بيتنا', members: [A, B], currency: 'د.ع', createdAt: now },
     cols,
   });
 }
