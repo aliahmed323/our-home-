@@ -3,6 +3,7 @@ import type {
   Activity, ActivityType, Alert, CalEvent, Expense, Goal, Member, Need, Note, Task, Plan, Uid,
 } from './types';
 import { dueLabel, money, num } from '@/lib/dates';
+import { IS_DEMO } from '@/lib/config';
 
 type New<T> = Omit<T, 'id' | 'createdAt' | 'createdBy'>;
 
@@ -29,6 +30,27 @@ export function createActions(store: HouseholdStore, me: Uid, ctx: () => { membe
   const log = (type: ActivityType, text: string, emoji: string, notify = true, urgent = false) => {
     store.add('activity', { type, text, emoji, notify, urgent, ...stamp() } as Omit<Activity, 'id'>)
       .catch((e) => console.warn('[activity]', e));
+
+    if (notify && !IS_DEMO) {
+      // Find the partner's tokens
+      const members = Object.values(ctx().members);
+      const partnerTokens = members
+        .filter((m) => m.id !== me)
+        .flatMap((m) => m.fcmTokens || []);
+      
+      if (partnerTokens.length > 0) {
+        fetch('/api/notify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            tokens: partnerTokens,
+            title: 'Our Home',
+            body: text,
+            url: '/'
+          })
+        }).catch((e) => console.warn('[notify api]', e));
+      }
+    }
   };
 
   return {
